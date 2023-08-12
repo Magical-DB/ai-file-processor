@@ -15,6 +15,10 @@ const processFromCommandLine = async () => {
     .option("-if, --inputFolder <inputFolder>", "Path to the folder to process")
     .option("-i, --instruction <instruction>", "Instruction text")
     .option(
+      "-ig, --ignoreList <ignorelist>",
+      "Optional Files to ignore seperated by ,"
+    )
+    .option(
       "-gp, --globPattern <globPattern>",
       "Optional glob pattern for filtering file names e.g *.txt"
     )
@@ -24,6 +28,8 @@ const processFromCommandLine = async () => {
   const openAiKey = options.key;
   const inputFolder = options.inputFolder;
   const globPattern = options.globPattern;
+  const _ignoreList: string = options.ignoreList;
+  const ignoreList: string[] = [..._ignoreList.split(",").map((s) => s.trim())];
 
   const instruction = options.instruction;
 
@@ -42,7 +48,10 @@ const processFromCommandLine = async () => {
     inputFolder,
     outputFileGenerator,
     instruction,
-    { ignoreFileList: [], globPattern: globPattern },
+    {
+      ignoreFileList: ignoreList,
+      globPattern: globPattern,
+    },
     async (opts) => {
       console.log("Processing completed:", opts);
     }

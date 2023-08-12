@@ -45,8 +45,7 @@ export class AiFileProcessor {
         filePath.includes(".git") ||
         filePath.includes(".DS_Store") ||
         filePath.includes("node_modules") ||
-        filePath.includes("package-lock.json") ||
-        filePath.includes("package.json")
+        filePath.includes("package-lock.json")
       ) {
         console.log("Ignore: ", filePath);
 
@@ -89,7 +88,7 @@ export class AiFileProcessor {
       completedFilesList,
       failedFilesList,
       pendingFilesList,
-      allFilesList,
+      allFilesListWithIgnored: allFilesList,
     });
   }
 
@@ -101,7 +100,7 @@ export class AiFileProcessor {
     console.log("Processing file: " + inputFilePath);
     const fileContent = await AiFileProcessor.readFileAsync(inputFilePath);
     const response = await this.openAiSummarizeText({
-      systemText: `Here is a file with file path ${inputFilePath}. The result is going to be outputed to ${outputFileLocation}. The content of the file is: ${fileContent}`,
+      systemText: `You are tasked as an AI assistant to perform bulk operations on folders in a file. You are to follow the instruction given you and only use data from the input file to generate the output file. Here is a file with file path ${inputFilePath}. The result is going to be outputed to ${outputFileLocation}. The content of the file is: ${fileContent}`,
       expectedAction: `${instruction || "No instruction provided"}}`,
     });
     const outputContent = await this.extractResponseFromOpenAI(response);

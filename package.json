@@ -1,6 +1,6 @@
 {
   "name": "@magicaldb/ai-file-processor",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "For processing and outputing files using openai api",
   "main": "dist/index.js",
   "repository": {
