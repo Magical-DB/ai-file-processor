@@ -1,12 +1,16 @@
 {
-  "name": "aifileprocessorlib",
+  "name": "@magicaldb/ai-file-processor",
   "version": "1.0.0",
   "description": "For processing and outputing files using openai api",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Magical-DB/ai-file-processor.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Demi",
   "license": "ISC",
   "dependencies": {
     "commander": "^11.0.0",
@@ -14,5 +18,9 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Magical-DB/ai-file-processor/issues"
+  },
+  "homepage": "https://github.com/Magical-DB/ai-file-processor#readme"
 }

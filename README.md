@@ -5,15 +5,15 @@
 
 ### CLI Options: 
 ```
+ts-node cli.ts -k "OPEN_AI_API_KEY" -if ./example-data/  -i "Answer the question in the file provided"
+```
+
+```
 "-k, --key <key>", "OpenAI API key"
 
 "-if, --inputFolder <inputFolder>", "Path to the folder to process"
 
 "-i, --instruction <instruction>", "Instruction text"
-```
-
-```
-ts-node cli.ts -k "OPEN_AI_API_KEY" -if ./example-data/  -i "Answer the question in the file provided"
 ```
 
 
