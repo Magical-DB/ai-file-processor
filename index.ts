@@ -65,7 +65,7 @@ export class AiFileProcessor {
     inputFilePath: string,
     outputFileLocation: string,
     instruction: string
-  ) {
+  ): Promise<void> {
     console.log("Processing file: " + inputFilePath);
     const fileContent = await AiFileProcessor.readFileAsync(inputFilePath);
     const response = await this.openAiSummarizeText({
@@ -78,7 +78,9 @@ export class AiFileProcessor {
     return;
   }
 
-  public static async getListOfAllNestedFilesInFolder(folderPath: string) {
+  public static async getListOfAllNestedFilesInFolder(
+    folderPath: string
+  ): Promise<string[]> {
     const filesList: string[] = [];
     const files = await this.readDirectoryAsync(folderPath);
     for (const file of files) {

@@ -5,8 +5,6 @@
 
 ### CLI Options: 
 ```
-
-
 "-k, --key <key>", "OpenAI API key"
 
 "-if, --inputFolder <inputFolder>", "Path to the folder to process"
@@ -35,7 +33,7 @@ await fileProcessor.processFilesInFolder(
   );
 ```
 
-type of opts
+Type of `processFilesInFolder` argument
 
 ```
 folderPath: string,
@@ -47,4 +45,19 @@ onComplete: (opts: {
     pendingFilesList: string[];
     allFilesList: string[];
 }) => Promise<void>
+```
+
+### Other methods exposed
+```
+processFile(
+    inputFilePath: string,
+    outputFileLocation: string,
+    instruction: string
+) => Promise<void>
+```
+
+```
+getListOfAllNestedFilesInFolder(
+    folderPath: string
+  ): Promise<string[]> 
 ```
