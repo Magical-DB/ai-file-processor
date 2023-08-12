@@ -1,6 +1,6 @@
 # AI-file-processor
 
-## Script for automating file processing using ai
+## Script for processing files in a folder using ai
 NOTE: Using OpenAI cost money so be careful of using this on very large folders with nested subfolders.
 
 This is a module for automatically performing actions on a lot of files in a folder and generating an output folder 
