@@ -8,17 +8,17 @@ This is a module for automatically performing actions on a lot of files in a fol
 #### For example:
 You want to convert all js files in a repository from javascript to typescript
 ```
-npx @magicaldb/ai-file-processor processFile -k "OPEN_AI_KEY" -if "code-repository/"  -gp "*.js"  -i "convert the content of the file to typescript. Make sure you maintain the same functionality, signature and method names. Dont change anything that doesnt have tio change. All functionalities must be the same. Return only the typescript code and nothing else"
+npx @magicaldb/ai-file-processor -k "OPEN_AI_KEY" -if "code-repository/"  -gp "*.js"  -i "convert the content of the file to typescript. Make sure you maintain the same functionality, signature and method names. Dont change anything that doesnt have tio change. All functionalities must be the same. Return only the typescript code and nothing else"
 ```
 
 OR automatically write test scripts for all the files in a folder 
 ```
-npx @magicaldb/ai-file-processor processFile -k "OPEN_AI_KEY" -if "code-repository/"  -gp "*.js"  -i "Write comprehensive and complete unit test with jest for the content of the file. Make sure you capture all the edge cases and complete the test yourself, Only return the test code and nothing else"
+npx @magicaldb/ai-file-processor -k "OPEN_AI_KEY" -if "code-repository/"  -gp "*.js"  -i "Write comprehensive and complete unit test with jest for the content of the file. Make sure you capture all the edge cases and complete the test yourself, Only return the test code and nothing else"
 ```
 
 OR generate a summary for all the files in a folder
 ```
-npx @magicaldb/ai-file-processor processFile -k "OPEN_AI_KEY" -if "folder/"  -gp "*.txt"  -i "Summarise the content of the files ..."
+npx @magicaldb/ai-file-processor -k "OPEN_AI_KEY" -if "folder/"  -gp "*.txt"  -i "Summarise the content of the files ..."
 ```
 
 OR Basically any bulk action that needs to be performed on a list of files (and subfiles) in a folder in which a corresponding output files needs to be generated for each of the files in the folders 
@@ -32,7 +32,7 @@ It supports filtering files using glob patterns e.g to filter only txt files pas
 Make sure nodejs is installed
 
 ```
-npx @magicaldb/ai-file-processor processFile -k "OPEN_AI_API_KEY" -gp "*.txt" -if ./example-data/  -i "Answer the question in the file provided" -ig "node_modules,package-lock.json"
+npx @magicaldb/ai-file-processor -k "OPEN_AI_API_KEY" -gp "*.txt" -if ./example-data/  -i "Answer the question in the file provided" -ig "node_modules,package-lock.json"
 ```
 
 ```

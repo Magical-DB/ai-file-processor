@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { AiFileProcessor } from ".";
 import path from "path";
 import fs from "fs-extra";
@@ -29,7 +31,10 @@ const processFromCommandLine = async () => {
   const inputFolder = options.inputFolder;
   const globPattern = options.globPattern;
   const _ignoreList: string = options.ignoreList;
-  const ignoreList: string[] = [..._ignoreList.split(",").map((s) => s.trim())];
+  let ignoreList: string[] = [];
+  if (_ignoreList) {
+    ignoreList = [..._ignoreList.split(",").map((s) => s.trim())];
+  }
 
   const instruction = options.instruction;
 
