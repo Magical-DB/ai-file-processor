@@ -1,14 +1,16 @@
 {
   "name": "@magicaldb/ai-file-processor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "For processing and outputing files using openai api",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Magical-DB/ai-file-processor.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublish": "tsc"
   },
   "author": "Demi",
   "license": "ISC",
@@ -17,7 +19,8 @@
     "fs-extra": "^11.1.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.1"
+    "@types/fs-extra": "^11.0.1",
+    "typescript": "^5.1.6"
   },
   "bugs": {
     "url": "https://github.com/Magical-DB/ai-file-processor/issues"
