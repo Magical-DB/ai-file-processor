@@ -5,7 +5,7 @@
 
 ### CLI Options: 
 ```
-ts-node cli.ts -k "OPEN_AI_API_KEY" -if ./example-data/  -i "Answer the question in the file provided"
+npx @magicaldb/ai-file-processor processFile -k "OPEN_AI_API_KEY" -if ./example-data/  -i "Answer the question in the file provided"
 ```
 
 ```
