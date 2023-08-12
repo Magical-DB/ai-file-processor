@@ -9,9 +9,9 @@ const program = new Command();
 
 const processFromCommandLine = async () => {
   program
-    .name("string-util")
+    .name("ai-file-processor")
     .description(
-      "CLI to process the content of a folder using OpenAI API and write the output in another file"
+      "CLI to process the file content of a folder using OpenAI API and write the output in another file"
     )
     .option("-k, --key <key>", "OpenAI API key")
     .option("-if, --inputFolder <inputFolder>", "Path to the folder to process")
@@ -39,7 +39,7 @@ const processFromCommandLine = async () => {
   const instruction = options.instruction;
 
   if (!openAiKey || !inputFolder) {
-    console.error("API key and folder path are required.");
+    console.error("API key and folder path are required. Run with --help for options");
     return;
   }
 

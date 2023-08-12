@@ -1,27 +1,52 @@
 # AI-file-processor
+### Perform bulk actions on a all nested files in a folder using natural language.
+
+ Currently only supports text based files like `txt` `programming language scripting files` `csv`  etc.
+ Support for media files, images, videos and their instruction coming soon
 
 ## Script for processing files in a folder using ai
 NOTE: Using OpenAI cost money so be careful of using this on very large folders with nested subfolders.
 
-This is a module for automatically performing actions on a lot of files in a folder and generating an output folder 
+This is a library for automatically performing actions on a lot of files in a folder and generating an output folder 
 
-#### For example:
+### Installation:
+Run `npm install -g @magicaldb/ai-file-processor`  to install the library and then you can use `ai-file-processor --help`  
+OR 
+Use `npx @magicaldb/ai-file-processor` directly to use the library directly without installation.
+RUN `npx @magicaldb/ai-file-processor --help` to see arguments
+
+You need to have nodejs installed.
+
+#### Usage:
 You want to convert all js files in a repository from javascript to typescript
+#### Example 1 
+##### With installation:
+```
+ai-file-processor -k "OPEN_AI_KEY" -if "code-repository/"  -gp "*.js"  -i "convert the content of the file to typescript. Make sure you maintain the same functionality, signature and method names. Dont change anything that doesnt have tio change. All functionalities must be the same. Return only the typescript code and nothing else"
+```
+OR
+##### Without installation:
 ```
 npx @magicaldb/ai-file-processor -k "OPEN_AI_KEY" -if "code-repository/"  -gp "*.js"  -i "convert the content of the file to typescript. Make sure you maintain the same functionality, signature and method names. Dont change anything that doesnt have tio change. All functionalities must be the same. Return only the typescript code and nothing else"
 ```
 
-OR automatically write test scripts for all the files in a folder 
+<br>
+
+#### Example 2 Without installation:
+Automatically write test scripts for all the files in a folder 
 ```
 npx @magicaldb/ai-file-processor -k "OPEN_AI_KEY" -if "code-repository/"  -gp "*.js"  -i "Write comprehensive and complete unit test with jest for the content of the file. Make sure you capture all the edge cases and complete the test yourself, Only return the test code and nothing else"
 ```
 
-OR generate a summary for all the files in a folder
+#### Example 3 Without installation:
+Generate a summary for all the files in a folder
 ```
 npx @magicaldb/ai-file-processor -k "OPEN_AI_KEY" -if "folder/"  -gp "*.txt"  -i "Summarise the content of the files ..."
 ```
 
-OR Basically any bulk action that needs to be performed on a list of files (and subfiles) in a folder in which a corresponding output files needs to be generated for each of the files in the folders 
+
+<br>
+Basically any bulk action that needs to be performed on a list of files (and subfiles) in a folder in which a corresponding output files needs to be generated for each of the files in the folders 
 
 ##### Note:
 It supports filtering files using glob patterns e.g to filter only txt files pass "*.txt". By default any file with node_modules and in the path is fiiltered out
