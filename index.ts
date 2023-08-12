@@ -1,6 +1,7 @@
 import path from "path";
-import fs from "fs";
 import { Configuration, CreateChatCompletionResponse, OpenAIApi } from "openai";
+import { glob } from "glob";
+import fs from "fs-extra";
 
 export class AiFileProcessor {
   private localOpenAiApi: OpenAIApi;
@@ -20,6 +21,7 @@ export class AiFileProcessor {
     folderPath: string,
     outputFilePathGenerator: (inputFilePath: string) => string,
     instruction: string,
+    opts: { ignoreFileList?: string[]; globPattern?: string },
     onComplete: (opts: {
       completedFilesList: string[];
       failedFilesList: string[];
@@ -27,11 +29,35 @@ export class AiFileProcessor {
       allFilesList: string[];
     }) => Promise<void>
   ) {
+    const globPattern = opts?.globPattern;
+    const ignoreFileList = [...(opts?.ignoreFileList || [])];
     const completedFilesList: string[] = [];
     const failedFilesList: string[] = [];
     const allFilesList: string[] =
-      await AiFileProcessor.getListOfAllNestedFilesInFolder(folderPath);
-    const pendingFilesList = [...allFilesList];
+      await AiFileProcessor.getListOfAllNestedFilesInFolder(
+        folderPath,
+        globPattern
+      );
+
+    const pendingFilesList = [...allFilesList].filter((filePath) => {
+      if (
+        ignoreFileList.includes(filePath) ||
+        filePath.includes(".git") ||
+        filePath.includes(".DS_Store") ||
+        filePath.includes("node_modules") ||
+        filePath.includes("package-lock.json") ||
+        filePath.includes("package.json")
+      ) {
+        console.log("Ignore: ", filePath);
+
+        return false;
+      }
+      return true;
+    });
+
+    console.log("Processing ", pendingFilesList.length, "files");
+
+    console.log({ pendingFilesList, allFilesList });
 
     for (let i = 0; i < pendingFilesList.length; i++) {
       const filePath: string = pendingFilesList[i];
@@ -41,7 +67,6 @@ export class AiFileProcessor {
         } else if (failedFilesList.includes(filePath)) {
           console.log("File path failed", filePath);
         } else {
-          console.log("Processing", filePath);
           const outputFilePathName = outputFilePathGenerator(filePath);
           await this.processFile(filePath, outputFilePathName, instruction);
           completedFilesList.push(filePath);
@@ -54,6 +79,13 @@ export class AiFileProcessor {
     }
 
     await onComplete({
+      completedFilesList,
+      failedFilesList,
+      pendingFilesList,
+      allFilesList,
+    });
+
+    console.log("Processing Completed ", {
       completedFilesList,
       failedFilesList,
       pendingFilesList,
@@ -79,23 +111,46 @@ export class AiFileProcessor {
   }
 
   public static async getListOfAllNestedFilesInFolder(
-    folderPath: string
+    folderPath: string,
+    globPattern?: string
   ): Promise<string[]> {
     const filesList: string[] = [];
-    const files = await this.readDirectoryAsync(folderPath);
-    for (const file of files) {
-      console.log("running for: ", file);
-      const filePath = path.join(folderPath, file);
-      const stat = await this.readFileStatAsync(filePath);
-      if (stat.isDirectory()) {
-        await this.getListOfAllNestedFilesInFolder(filePath);
-      } else {
-        filesList.push(filePath);
-      }
-    }
 
+    const options = {
+      cwd: folderPath, // The current working directory in which to search
+      dot: false, // Include hidden files
+      nodir: true, // Do not include directories in the result
+      absolute: true, // Return absolute paths
+      ignore: ["node_modules/**"], // Ignore specific patterns
+    };
+
+    const pattern = globPattern || "**/*";
+
+    const files = await glob(pattern, options);
+    filesList.push(...files);
     return filesList;
   }
+
+  // public static async getListOfAllNestedFilesInFolder(
+  //   folderPath: string,
+  //   regex?: RegExp
+  // ): Promise<string[]> {
+  //   const filesList: string[] = [];
+  //   const files = await this.readDirectoryAsync(folderPath);
+  //   for (const file of files) {
+  //     const filePath = path.join(folderPath, file);
+  //     const stat = await this.readFileStatAsync(filePath);
+  //     if (stat.isDirectory()) {
+  //       await this.getListOfAllNestedFilesInFolder(filePath);
+  //     } else {
+  //       if (!regex || (regex && regex.test(filePath))) {
+  //         filesList.push(filePath);
+  //       }
+  //     }
+  //   }
+
+  //   return filesList;
+  // }
 
   public static writeFileAsync(
     outputFileUrl: string,

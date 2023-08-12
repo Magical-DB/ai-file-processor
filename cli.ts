@@ -14,11 +14,16 @@ const processFromCommandLine = async () => {
     .option("-k, --key <key>", "OpenAI API key")
     .option("-if, --inputFolder <inputFolder>", "Path to the folder to process")
     .option("-i, --instruction <instruction>", "Instruction text")
+    .option(
+      "-gp, --globPattern <globPattern>",
+      "Optional glob pattern for filtering file names e.g *.txt"
+    )
     .parse(process.argv);
 
   const options = program.opts();
   const openAiKey = options.key;
   const inputFolder = options.inputFolder;
+  const globPattern = options.globPattern;
 
   const instruction = options.instruction;
 
@@ -37,6 +42,7 @@ const processFromCommandLine = async () => {
     inputFolder,
     outputFileGenerator,
     instruction,
+    { ignoreFileList: [], globPattern: globPattern },
     async (opts) => {
       console.log("Processing completed:", opts);
     }
