@@ -1,13 +1,13 @@
 # AI-file-processor
 ### Perform bulk actions on a all nested files in a folder using natural language.
 
- Currently only supports text based files like `txt` `programming language scripting files` `csv`  etc.
+ Currently only supports text based files like `txt`, `programming language scripting files`, `csv`  etc.
  Support for media files, images, videos and their instruction coming soon
 
 ## Script for processing files in a folder using ai
-NOTE: Using OpenAI cost money so be careful of using this on very large folders with nested subfolders.
-
 This is a library for automatically performing actions on a lot of files in a folder and generating an output folder 
+
+NOTE: Using OpenAI cost money so be careful of using this on very large folders with nested subfolders.
 
 ### Installation:
 Run `npm install -g @magicaldb/ai-file-processor`  to install the library and then you can use `ai-file-processor --help`  
